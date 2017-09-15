@@ -17,7 +17,7 @@ public class Main{
 			max[1][0] = wine[1];
 			
 			for(int i=1; i<n; i++) {
-				//2579 계단 오르기와 다른 점 : 세 칸 이상 건너뛸 수 있기 때문에
+				//2579 계단 오르기와 다른 점 : 세 칸 이상 건너뛸 수 있기 때문에 +2 의 경우도 추가해준다.
 				max[i][1] = max[i-1][0] + wine[i];
 				if(i+1<n)
 					max[i+1][0] = Math.max(max[i+1][0] ,Math.max(max[i-1][0], max[i-1][1]) + wine[i+1]);
