@@ -13,38 +13,23 @@ class node{
 
 public class Main {
 
-
 	public static void traverse(node node, int type) {
-		switch(type) {
-		case 1 : 
+		if(type==1)
 			System.out.print(node.c);
-			if(node.left!=null)
-				traverse(node.left, 1);
-			if(node.right!=null)
-				traverse(node.right, 1);
-			break;
-		case 2 :
-			if(node.left!=null)
-				traverse(node.left, 2);
+		if(node.left!=null)
+			traverse(node.left, type);
+		if(type==2)
 			System.out.print(node.c);
-			if(node.right!=null)
-				traverse(node.right, 2);
-			break;
-		case 3 : 
-			if(node.left!=null)
-				traverse(node.left, 3);
-			if(node.right!=null)
-				traverse(node.right, 3);
+		if(node.right!=null)
+			traverse(node.right, type);
+		if(type==3)
 			System.out.print(node.c);
-			break;
-		}
 	}
 
 
 	public static void main(String [] args) {
 		Scanner scanner = new Scanner(System.in);
 
-		//A 65
 		int N = scanner.nextInt();
 		node[] nodes = new node[N];
 
@@ -63,8 +48,6 @@ public class Main {
 		System.out.println();
 		traverse(nodes[0], 3);
 		System.out.println();
-
-
 
 	}
 }
