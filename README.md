@@ -1,4 +1,6 @@
 # CodingTests
 
 BOJ problems solved by JAVA
-> last update : 17.10.11.  
+https://www.acmicpc.net/user/hanhb1011
+
+> last update : 17.10.12.  
