@@ -1,59 +1,29 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.Scanner;
-
-public class Main {
-
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		class Node implements Comparable<Node>{int w; int i; int d; public Node(int i, int w) { this.w = w; this.i = i; }
-			public int compareTo(Node o) {
-				if(d>o.d) return 1;
-				else if(d<o.d) return -1;
-				else return 0;
-			};
-		}
-		
-		int V = scanner.nextInt(), E = scanner.nextInt(), K = scanner.nextInt(); //시작 정점의 번호
-		ArrayList<Node> []list = new ArrayList[V+1];
-		for(int i=1; i<=V; i++)
-			list[i] = new ArrayList<>();
-			
-		for(int i=0; i<E; i++) {
-			int[] inputs = {scanner.nextInt(), scanner.nextInt(), scanner.nextInt()}; //u v w
-			list[inputs[0]].add(new Node(inputs[1], inputs[2])); //노트  u에 간선 v 추가
-		}
-		
-		int [] dist = new int[V+1];
-		Arrays.fill(dist, Integer.MAX_VALUE);
-		dist[K] = 0;
-		
-		PriorityQueue<Node> queue = new PriorityQueue<>();
-		queue.add(new Node(K, 0));
-		
-		while(!queue.isEmpty()) { 
-			Node node = queue.poll();
-			if(node.d > dist[node.i])
+import java.util.*;
+public class Main{
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		StringBuffer sb=new StringBuffer();
+		class Node{int n,w; Node(int nn,int ww){n=nn;w=ww;}}
+		int V=sc.nextInt(),E=sc.nextInt(),K=sc.nextInt()-1;
+		List<Node>[]al=Arrays.stream(new ArrayList[V]).map(l->{return new ArrayList<Node>();}).toArray(List[]::new);
+		int[] dist=Arrays.stream(new int[V]).map(i->Integer.MAX_VALUE).toArray();
+		dist[K]=0;
+		for(int i=0;i<E;i++)
+			al[sc.nextInt()-1].add(new Node(sc.nextInt()-1,sc.nextInt()));
+		PriorityQueue<Node> pq = new PriorityQueue<>((a,b)->{return a.w-b.w;});
+		pq.add(new Node(K, dist[K]));
+		while(!pq.isEmpty()){
+			Node u = pq.poll();
+			if(u.w>dist[u.n])
 				continue;
-			
-			Iterator<Node> it = list[node.i].iterator();
-			while(it.hasNext()) { 
-				Node next = it.next();
-				if(dist[next.i] > dist[node.i] + next.w) {
-					dist[next.i] = dist[node.i] + next.w;
-					next.d = dist[next.i];
-					queue.add(next);
+			for(Node v:al[u.n]) {
+				if(dist[v.n]>dist[u.n]+v.w) {
+					dist[v.n]=dist[u.n]+v.w;
+					pq.add(new Node(v.n,dist[v.n]));
 				}
 			}
 		}
-		
-		StringBuilder result = new StringBuilder();
-		for(int i=1; i<=V; i++)
-			result.append(dist[i] == Integer.MAX_VALUE ? "INF\n" : (dist[i]+"\n"));
-		System.out.println(result);
-		
+		Arrays.stream(dist).forEach(i->sb.append(i==Integer.MAX_VALUE?"INF\n":(i+"\n")));
+		System.out.println(sb);
 	}
 }
