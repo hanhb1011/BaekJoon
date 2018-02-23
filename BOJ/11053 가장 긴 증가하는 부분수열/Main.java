@@ -1,28 +1,15 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+public class Main{
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		int N=sc.nextInt();
+		int[] a=Arrays.stream(new int[N]).map(i->sc.nextInt()).toArray(),d=new int[N];
 
-public class Main {
+		for(int i=1;i<N;i++)
+			for(int j=0;j<i;j++)
+				if(a[j]<a[i])
+					d[i]=Math.max(d[i],d[j]+1);
 
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		int N = scanner.nextInt();
-		int [] num = new int[N];
-		for(int i=0; i<N; i++)
-			num[i] = scanner.nextInt();
-		
-		int []dp = new int[1001]; // 해당 수의 최대 길이 저장
-		int result = 0; //최종 길이
-		
-		for(int i=0; i<N; i++) {
-			int max = 0;
-			for(int j=num[i]-1; j>=1; j--) {
-				if(max < dp[j])
-					max = dp[j];
-			}
-			dp[num[i]] = max+1;
-			result = result > dp[num[i]] ? result : dp[num[i]];
-		}
-		System.out.println(result);
+		System.out.println(Arrays.stream(d).max().getAsInt()+1);
 	}
-	
 }
