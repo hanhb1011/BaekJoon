@@ -1,21 +1,18 @@
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		String s = scanner.next();
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String s = br.readLine();
 		LinkedList<Character> str = new LinkedList<>();
 		ListIterator<Character> idx = str.listIterator(str.size());
 		for(int i=0; i<s.length(); i++)
 			idx.add(s.charAt(i));
-		
-		int N = scanner.nextInt();
-		
-		for(int i=0; i<N; i++) {
-			String cmd = scanner.next();
+		int N = Integer.parseInt(br.readLine());
+
+		while(N-->0){
+			String cmd = br.readLine();
 			try {
 				if(cmd.equals("L"))
 					idx.previous();
@@ -25,15 +22,14 @@ public class Main {
 					idx.previous();
 					idx.remove();
 				} else {
-					idx.add(scanner.next().charAt(0));
+					idx.add(cmd.charAt(2));
 				}
 			} catch (Exception e) {}
 		}
-		Iterator<Character> it = str.iterator();
-		StringBuilder sb = new StringBuilder(600000);
-		while(it.hasNext())
-			sb.append(it.next());
+
+		StringBuffer sb = new StringBuffer(600000);
+		for(char c : str)
+			sb.append(c);
 		System.out.println(sb);
 	}
 }
-
