@@ -1,59 +1,28 @@
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.Scanner;
-
+import java.util.*;
 
 public class Main {
-
-
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		class Loc implements Comparable<Loc>{
-			int v,w; 
-			Loc(int vv, int ww){v=vv;w=ww;}
-			@Override
-			public int compareTo(Loc o) {
-				if(w>o.w) return 1;
-				else if(w==o.w) return 0;
-				return -1;}
+		Scanner sc = new Scanner(System.in);
+		int V=sc.nextInt(), E=sc.nextInt(), d[]=new int[V], m[][]=new int[V][V], MAX=100001; Arrays.fill(d, MAX*V);
+		PriorityQueue<Integer> q = new PriorityQueue<>((a,b)-> d[a]-d[b]);
+		for(int i=0;i<V;i++)
+			Arrays.fill(m[i], MAX);
+		while(E-->0){
+			int a=sc.nextInt()-1,b=sc.nextInt()-1,w=sc.nextInt();
+			m[a][b] = Math.min(m[a][b], w);
 		}
-		int N = scanner.nextInt();
-		int M = scanner.nextInt();
-		int [][]graph = new int[N][N];
-		for(int i=0; i<N; i++)
-			Arrays.fill(graph[i], 1000000);
-		int []cost = new int[N];
-		Arrays.fill(cost, Integer.MAX_VALUE);
-		for(int i=0; i<M; i++) {
-			int u = scanner.nextInt()-1;
-			int v = scanner.nextInt()-1;
-			int w = scanner.nextInt();
-			graph[u][v] = graph[u][v] < w ? graph[u][v] : w;
-			
-		}
-		int A = scanner.nextInt()-1;
-		int B = scanner.nextInt()-1;
-
-		PriorityQueue<Loc> pq = new PriorityQueue<>();
-		cost[A] = 0;
-		pq.add(new Loc(A, 0));
-		
-		while(!pq.isEmpty()) {
-			Loc loc = pq.poll();
-			int v = loc.v;
-			if(loc.w > cost[v])
-				continue;
-			
-			for(int i=0; i<N; i++)
-				if(graph[v][i]!=1000000) {
-					if(cost[v]+graph[v][i] < cost[i]) {
-						pq.add(new Loc(i, graph[v][i]));
-						cost[i] = cost[v]+graph[v][i];
-					}
+		int S=sc.nextInt()-1, D=sc.nextInt()-1;
+		d[S]=0;
+		q.add(S);
+		while(!q.isEmpty()){
+			int v=q.poll();
+			for(int i=0;i<V;i++)
+				if(m[v][i]!=MAX && d[i]>d[v]+m[v][i]){
+					d[i]=d[v]+m[v][i];
+					q.add(i);
 				}
 		}
-		
-		System.out.println(cost[B]);
+
+		System.out.println(d[D]);
 	}
 }
-
