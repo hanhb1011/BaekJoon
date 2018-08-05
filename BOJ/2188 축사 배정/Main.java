@@ -1,34 +1,33 @@
 import java.util.*;
 
 public class Main{
-	static int[]a=new int[1001], b=new int[1001], vis=new int[1001];
-	static List<Integer>[] l;
-
+	static int B[]=new int[1000];
+	static LinkedList<Integer>[] L;
 	public static void main(String[] args){
 		Scanner sc=new Scanner(System.in);
-		int N=sc.nextInt(), M=sc.nextInt(), res=0;
-		l = Arrays.stream(new LinkedList[N+1]).map(i->new LinkedList<>()).toArray(LinkedList[]::new);
-		for(int i=1;i<=M;i++) {
+		int N=sc.nextInt(), M=sc.nextInt(), R=0;
+		for(int i=0;i<M;i++)
+			B[i]=-1;
+		L=new LinkedList[N];
+		for(int i=0;i<N;i++) {
+			L[i]=new LinkedList<>();
 			int k=sc.nextInt();
-			while(k-->0)
-				l[i].add(sc.nextInt());
+			for(int j=0;j<k;j++)
+				L[i].add(sc.nextInt()-1);
 		}
-
-		for(int i=1;i<=N;i++)
-			if(dfs(i, new int[N+1]))
-				res++;
-		System.out.println(res);
+		for(int i=0;i<N;i++)
+			if(dfs(i,new int[N]))
+				R++;
+		System.out.println(R);
 	}
-	
-	static boolean dfs(int v, int[]vis) {
-		vis[v]=1;
-		for(int u:l[v]) {
-			if(b[u]==0 || vis[b[u]]==0 && dfs(b[u],vis)) {
-				a[v]=u;
-				b[u]=v;
+
+	static boolean dfs(int a,int[]v) {
+		v[a]=1;
+		for(int b:L[a])
+			if(B[b]==-1 || v[B[b]]==0 && dfs(B[b],v)) {
+				B[b]=a;
 				return true;
 			}
-		}
 		return false;
 	}
 }
