@@ -8,17 +8,14 @@ public class Main{
 		class N{int y,x; N(int i,int j){y=i;x=j;}}
 		PriorityQueue<N> pq = new PriorityQueue<>((i,j)->d[i.y][i.x]-d[j.y][j.x]);
 		for(int i=0;i<Y;i++)
-			for(int j=0;j<X;j++) {
+			for(int j=0;j<X;j++)
 				a[i][j]=sc.nextInt();
-				if(i==0 || i==Y-1 || j==0 || j==X-1)
-					pq.add(new N(i,j));
-			}
-
+		pq.add(new N(0,0));
 		while(!pq.isEmpty()) {
 			N n = pq.poll();
 			for(int i=0;i<4;i++) {
 				int y=n.y+D[i][0], x=n.x+D[i][1];
-				if(y>0 && y<Y-1 && x>0 && x<X-1 && v[y][x]==0) {
+				if(y>=0 && y<Y && x>=0 && x<X && v[y][x]==0) {
 					v[y][x]=1;
 					if(a[y][x]==1)
 						d[y][x]=d[n.y][n.x]+1;
@@ -29,12 +26,11 @@ public class Main{
 				}
 			}
 		}
-		
+
 		for(int i=0;i<Y;i++)
 			for(int j=0;j<X;j++)
 				if(d[i][j]==max && a[i][j]==1)
 					cnt++;
-		System.out.println(max);
-		System.out.println(cnt);
+		System.out.println(max+"\n"+cnt);
 	}
 }
