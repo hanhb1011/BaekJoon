@@ -1,8 +1,8 @@
 # CodingTests
 
-BOJ problems solved by JAVA and Kotlin
+BOJ problems
 
 
 > https://www.acmicpc.net/user/hanhb1011
 >
-> last update : 18.10.1.
+> last update : 18.10.17.
