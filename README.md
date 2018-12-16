@@ -5,4 +5,4 @@ BOJ problems
 
 > https://www.acmicpc.net/user/hanhb1011
 >
-> last update : 18.11.26.
+> last update : 18.12.16.
